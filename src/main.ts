@@ -1,4 +1,4 @@
-import { Logger } from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import {
@@ -14,6 +14,7 @@ async function bootstrap() {
     new FastifyAdapter(),
   );
 
+  app.useGlobalPipes(new ValidationPipe());
   const configService = app.get(ConfigService);
   const appEnv = configService.get<string>('APP_ENV');
 
